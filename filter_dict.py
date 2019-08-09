@@ -48,7 +48,6 @@ def call_method(target, args=None, kwargs=None):
         target_dict.update(kwargs)
     else:
         target_dict = filter_dict(dict_to_filter=kwargs, keywords=target_keywords)
-
     return target(**target_dict)
 
 
