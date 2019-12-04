@@ -41,13 +41,10 @@ def call_method(target, args=None, kwargs=None):
         kwargs = {}
     if args is None:
         args = []
-
-    target_keywords, with_args, with_kwargs = get_method_keywords(target)
-    if with_kwargs:
-        target_dict = dict.fromkeys(target_keywords, None)
-        target_dict.update(kwargs)
-    else:
-        target_dict = filter_dict(dict_to_filter=kwargs, keywords=target_keywords)
+    target_dict = get_method_keywords(target,return_contains_args_kwargs=False)
+    keys_needed=list(target_dict.keys())
+    target_dict.update(kwargs)
+    target_dict = filter_dict(dict_to_filter=target_dict, keywords=keys_needed)
     return target(**target_dict)
 
 
