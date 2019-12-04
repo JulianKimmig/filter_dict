@@ -8,11 +8,11 @@ def filter_dict(dict_to_filter, keywords, default=None):
 
 def get_method_keywords(method, return_contains_args_kwargs=True):
     sig = inspect.signature(method)
-    filter_keys = [
-        param.name
+    filter_keys = {
+        param.name:param.default if param.default is not inspect._empty else None
         for param in sig.parameters.values()
         if param.kind == param.POSITIONAL_OR_KEYWORD or param.kind == param.KEYWORD_ONLY
-    ]
+    }
     if not return_contains_args_kwargs:
         return filter_keys
     return (
@@ -62,4 +62,4 @@ if __name__ == "__main__":
 
     print(target_keywords, with_args, with_kwargs)
     print(filter_dict(dict_to_filter=kwargs, keywords=target_keywords))
-    call_method(f, **kwargs)
+    call_method(f, kwargs=kwargs)
