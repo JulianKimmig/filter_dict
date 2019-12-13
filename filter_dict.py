@@ -45,7 +45,7 @@ def call_method(target, args=None, kwargs=None):
     keys_needed=list(target_dict.keys())
     target_dict.update(kwargs)
     target_dict = filter_dict(dict_to_filter=target_dict, keywords=keys_needed)
-    return target(**target_dict)
+    return target(*args,**target_dict)
 
 
 if __name__ == "__main__":
