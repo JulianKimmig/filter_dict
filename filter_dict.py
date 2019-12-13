@@ -1,4 +1,5 @@
 import inspect
+from functools import partial
 
 
 def filter_dict(dict_to_filter, keywords, default=None):
@@ -37,6 +38,10 @@ def get_method_keywords(method, return_contains_args_kwargs=True):
 
 
 def call_method(target, args=None, kwargs=None):
+    return create_partial_method(target=target,args=args,kwargs=kwargs)()
+
+
+def create_partial_method(target, args=None, kwargs=None):
     if kwargs is None:
         kwargs = {}
     if args is None:
@@ -45,8 +50,7 @@ def call_method(target, args=None, kwargs=None):
     keys_needed=list(target_dict.keys())
     target_dict.update(kwargs)
     target_dict = filter_dict(dict_to_filter=target_dict, keywords=keys_needed)
-    return target(*args,**target_dict)
-
+    return partial(target,*args,**kwargs)
 
 if __name__ == "__main__":
 
