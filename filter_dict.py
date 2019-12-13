@@ -50,7 +50,7 @@ def create_partial_method(target, args=None, kwargs=None):
     keys_needed=list(target_dict.keys())
     target_dict.update(kwargs)
     target_dict = filter_dict(dict_to_filter=target_dict, keywords=keys_needed)
-    return partial(target,*args,**kwargs)
+    return partial(target,*args,**target_dict)
 
 if __name__ == "__main__":
 
